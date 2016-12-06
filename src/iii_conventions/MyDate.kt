@@ -19,10 +19,24 @@ data class MyDate(val year: Int, val month: Int, val dayOfMonth: Int) : Comparab
         instance.set(DAY_OF_MONTH, dayOfMonth)
         return instance.timeInMillis
     }
+
 }
 
+operator fun MyDate.plus(timeInterval: TimeInterval): MyDate {
+    return plus(RepeatedTimeInterval(timeInterval, 1))
+}
+
+operator fun MyDate.plus(repeatedTimeInterval: RepeatedTimeInterval): MyDate {
+    return addTimeIntervals(repeatedTimeInterval.interval, repeatedTimeInterval.times)
+}
+
+operator fun TimeInterval.times(n: Int): TimeInterval {
+    return this * n
+}
 
 operator fun MyDate.rangeTo(other: MyDate): DateRange = DateRange(this, other)
+
+data class RepeatedTimeInterval(val interval: TimeInterval, val times: Int)
 
 enum class TimeInterval {
     DAY,
