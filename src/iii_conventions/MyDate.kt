@@ -14,9 +14,7 @@ data class MyDate(val year: Int, val month: Int, val dayOfMonth: Int) : Comparab
 
     fun toMillis(): Long {
         val instance = getInstance()
-        instance.set(YEAR, year)
-        instance.set(MONTH, month - 1)
-        instance.set(DAY_OF_MONTH, dayOfMonth)
+        instance.set(year, month, dayOfMonth)
         return instance.timeInMillis
     }
 
