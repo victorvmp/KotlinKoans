@@ -13,9 +13,9 @@ data class MyDate(val year: Int, val month: Int, val dayOfMonth: Int) : Comparab
     }
 
     fun toMillis(): Long {
-        val instance = getInstance()
-        instance.set(year, month, dayOfMonth)
-        return instance.timeInMillis
+        val c = Calendar.getInstance()
+        c.set(year, month, dayOfMonth)
+        return c.timeInMillis
     }
 
 }
@@ -28,9 +28,7 @@ operator fun MyDate.plus(repeatedTimeInterval: RepeatedTimeInterval): MyDate {
     return addTimeIntervals(repeatedTimeInterval.interval, repeatedTimeInterval.times)
 }
 
-operator fun TimeInterval.times(n: Int): TimeInterval {
-    return this * n
-}
+operator fun TimeInterval.times(n: Int) = RepeatedTimeInterval(this, n)
 
 operator fun MyDate.rangeTo(other: MyDate): DateRange = DateRange(this, other)
 

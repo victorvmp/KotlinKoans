@@ -4,7 +4,7 @@ import util.TODO
 import java.util.*
 
 fun task41(): Nothing = TODO(
-    """
+        """
         Task41.
         Add a 'partitionTo' function that splits a collection into two collections according to a predicate.
         Uncomment the commented invocations of 'partitionTo' below and make them compile.
@@ -20,11 +20,20 @@ fun task41(): Nothing = TODO(
 )
 
 fun List<String>.partitionWordsAndLines(): Pair<List<String>, List<String>> {
-    task41()
-//    return partitionTo(ArrayList<String>(), ArrayList()) { s -> !s.contains(" ") }
+    return partitionTo(ArrayList(), ArrayList()) { s -> !s.contains(" ") }
 }
 
 fun Set<Char>.partitionLettersAndOtherSymbols(): Pair<Set<Char>, Set<Char>> {
-    task41()
-//    return partitionTo(HashSet<Char>(), HashSet()) { c -> c in 'a'..'z' || c in 'A'..'Z'}
+    return partitionTo(HashSet(), HashSet()) { c -> c in 'a'..'z' || c in 'A'..'Z' }
+}
+
+fun <T, C : MutableCollection<T>> Iterable<T>.partitionTo(first: C, second: C, predicate: (T) -> Boolean): Pair<C, C> {
+    for (element in this) {
+        if (predicate(element)) {
+            first.add(element)
+        } else {
+            second.add(element)
+        }
+    }
+    return Pair(first, second)
 }

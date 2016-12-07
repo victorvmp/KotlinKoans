@@ -30,19 +30,12 @@ class EffectiveDate<R> : ReadWriteProperty<R, MyDate> {
     var timeInMillis: Long? = null
 
     operator override fun getValue(thisRef: R, property: KProperty<*>): MyDate {
-        val millis = timeInMillis ?: 1
-        return millis.toDate()
+        return timeInMillis!!.toDate()
     }
 
     operator override fun setValue(thisRef: R, property: KProperty<*>, value: MyDate) {
         timeInMillis = value.toMillis()
     }
-}
-
-fun MyDate.toMillis(): Long {
-    val c = Calendar.getInstance()
-    c.set(year, month, dayOfMonth)
-    return c.timeInMillis
 }
 
 fun Long.toDate(): MyDate {
